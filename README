@@ -1,0 +1,40 @@
+# THIS DOCKER IMAGE WITH FASTAPI IS SETUP TO TEST USAGE OF A MODULE CALLED RATE LIMITER IN THE FORM OF DECORATOR.
+# THE MODULE IS DESINED IN THE FORM OF DECORATER SO THAT IT COULD BE USED WHEREVER NEEDED.
+# IT IS ASSUMED THAT EACH REQUESTER IS IDENTIFIED BY HIS TOKEN. REQUESTER IP OR EVERY UNIQUE VALUE CAN BE USED AS IDENTIFIER AS WELL.
+# REDIS IS USED AS CACHING TOOL FOR AND SCALABILITY PURPOSES. FOR SMALL SOLUTIONS WE CAN USE A QUEUE OR DATABASES SUCH AS SQLITE INSTEAD.
+
+
+############ USAGE ###########
+1- Build the image
+
+In the limiter folder, you can run this command to build the image:
+	docker build -t rate-limiter:1.0 .
+
+Or uncomment build section in docker-compose.yml and run:
+	docker-compose build
+
+2- Run the fastAPI webserver to test the module:
+	docker-compose up -d
+
+
+3- There are variables defined in .env file which can be changed due to rate limiter strategy
+	REQUEST_NUM     ---->   Number of requests
+	DURATION_SEC    ---->   Time window in seconds
+
+
+
+########## TEST ###########
+1- Build the test image
+
+In the test folder, run this command to build the image:
+	docker build -t test-limiter:1.0 .
+
+Or uncomment build section in docker-compose.yml and run:
+        docker-compose build
+
+2- Open .env file and change the URL value to the IP and PORT of the webserver
+
+3- Run this container to test the module in a loop (which is requesting for 100 times having 1 second intervals):
+	docker-compose up -d
+
+

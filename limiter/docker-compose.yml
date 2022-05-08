@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  api:
+## Uncomment build tag to create image when running docker-compose ##
+#    build: ./
+    image: 'rate-limiter:1.0'
+    command: uvicorn app:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    ports:
+      - 8087:8000
+    restart: unless-stopped
+    container_name: rateLimiter
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+
+  redis:
+    image: 'redis:6.2.6'
+    restart: unless-stopped
+    container_name: limiterRedis
+    

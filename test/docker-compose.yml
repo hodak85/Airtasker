@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  test:
+## Uncomment build tag to create image when running docker-compose ##
+#    build: ./
+    image: 'test-limiter:1.0'
+    restart: unless-stopped
+    container_name: testLimiter
+    env_file:
+      - ./.env
+    
